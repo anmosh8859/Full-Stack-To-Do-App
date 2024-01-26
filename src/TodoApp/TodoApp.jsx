@@ -1,7 +1,7 @@
 export default function TodoApp(){
     return(
         <div className="TodoApp">
-            Todo Management Application
+            {/* Todo Management Application */}
             <LoginComponent />
             {/* <WelcomeComponent /> */}
         </div>
@@ -11,7 +11,19 @@ export default function TodoApp(){
 function LoginComponent(){
     return (
         <div className="Login">
-            Login Component
+            <div className="Login Form">
+                <div>
+                    <label>User Name</label>
+                    <input type = "text" name = "username" />
+                </div>
+                <div>
+                    <label>Password</label>
+                    <input type = "password" name = "username" />
+                </div>
+                <div>
+                    <button type = "button" name="login">LogIn</button>
+                </div>
+            </div>
         </div>
     )
 }
