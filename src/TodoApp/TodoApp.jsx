@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './TodoApp.css'
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, useNavigate, useParams } from 'react-router-dom'
 
 export default function TodoApp(){
     return(
@@ -9,7 +9,7 @@ export default function TodoApp(){
                 <Routes>
                     <Route path='/' element={<LoginComponent />} />
                     <Route path='/login' element={<LoginComponent />} />
-                    <Route path='/welcome' element={<WelcomeComponent />} />
+                    <Route path='/welcome/:username' element={<WelcomeComponent />} />
                     <Route path='/*' element={<ErrorComponent />} />
                 </Routes>
             </BrowserRouter>
@@ -58,7 +58,7 @@ function LoginComponent(){
             console.log('success')
             setSuccessMessage(true)
             setErrorMessage(false)
-            navigate('/welcome')
+            navigate(`/welcome/${username}`)
         }
         else{
             console.log('failed')
@@ -94,9 +94,15 @@ function LoginComponent(){
     )
 }
 function WelcomeComponent(){
+
+    const {username} = useParams()
+
+
+
     return(
         <div className="WelcomeComponent">
-            <h1>Welcome Component</h1>
+            <h1>Welcome {username}</h1>
+            <div>Welcome Component</div>
         </div>
     )
 }
@@ -104,7 +110,10 @@ function WelcomeComponent(){
 function ErrorComponent(){
     return(
         <div className="ErrorComponent">
-            <h1>Error</h1>
+            <h1>We are working really hard!</h1>
+            <div>
+                Apologies for the 404. Reach out to our team at ABC-DEF-GHIJ.
+            </div>
         </div>
     )
 }
