@@ -41,23 +41,8 @@ function LoginComponent(){
 
     const[successMessage, setSuccessMessage] = useState(false)
 
-    // function ShowSuccessMessage(){
-    //     if(successMessage){
-    //         return (
-    //             <div className='successMessage'>Authenticated Succefully</div>
-    //         )
-    //     } else return null
-    // }
 
     const[errorMessage, setErrorMessage] = useState(false)
-
-    // function ShowErrorMessage(){
-    //     if(errorMessage){
-    //         return (
-    //             <div className='errorMessage'>Authenticated Failed, Please check your credentials.</div>
-    //             )
-    //     } else return null
-    // }
 
     const navigate = useNavigate()
 
