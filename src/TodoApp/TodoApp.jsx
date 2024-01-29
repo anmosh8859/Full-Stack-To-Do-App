@@ -1,18 +1,26 @@
 import { useState } from 'react'
 import './TodoApp.css'
-import { BrowserRouter, Route, Routes, useNavigate, useParams } from 'react-router-dom'
+import { BrowserRouter, Link, Route, Routes, useNavigate, useParams } from 'react-router-dom'
 
 export default function TodoApp(){
     return(
         <div className="TodoApp">
+
+            <HeaderComponent />
+
             <BrowserRouter>
                 <Routes>
                     <Route path='/' element={<LoginComponent />} />
                     <Route path='/login' element={<LoginComponent />} />
                     <Route path='/welcome/:username' element={<WelcomeComponent />} />
                     <Route path='/*' element={<ErrorComponent />} />
+                    <Route path='/todos' element={<ListTodosComponent />} />
+                    <Route path='/logout' element={<LogoutComponent />} />
                 </Routes>
             </BrowserRouter>
+
+            <FooterComponent />
+
         </div>
     )
 }
@@ -102,7 +110,7 @@ function WelcomeComponent(){
     return(
         <div className="WelcomeComponent">
             <h1>Welcome {username}</h1>
-            <div>Welcome Component</div>
+            <div>Manage your todos - <Link to="/todos">Go here</Link></div>
         </div>
     )
 }
@@ -113,6 +121,77 @@ function ErrorComponent(){
             <h1>We are working really hard!</h1>
             <div>
                 Apologies for the 404. Reach out to our team at ABC-DEF-GHIJ.
+            </div>
+        </div>
+    )
+}
+
+function ListTodosComponent(){
+
+    const today = new Date();
+    const targetDate = new Date(today.getFullYear() + 12, today.getMonth, today.getDay())
+
+    const todos = [
+                    {id:1, description: 'Learn AWS', done:false.toString(), targetDate: targetDate.toString()},
+                    {id:2, description: 'Learn Azure', done:false.toString(), targetDate: targetDate.toString()},
+                    {id:3, description: 'Learn Kubernet', done:false.toString(), targetDate: targetDate.toString()}
+                ]
+
+    return(
+        <div className="container">
+            <h1>Things you want to do!</h1>
+            <div>
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <td>id</td>
+                            <td>description</td>
+                            <td>Is Done?</td>
+                            <td>Target Date</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            todos.map(
+                               todo=>(
+                                <tr key={todo.id}>
+                                    <td>{todo.id}</td>
+                                    <td>{todo.description}</td>
+                                    <td>{todo.done}</td>
+                                    <td>{todo.targetDate}</td>
+                                </tr>
+                               )
+                            )
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    )
+}
+
+function HeaderComponent(){
+    return(
+        <div className="header">
+            Header <hr />
+        </div>
+    )
+}
+
+function FooterComponent(){
+    return(
+        <div className="footer">
+            <hr /> Footer 
+        </div>
+    )
+}
+
+function LogoutComponent(){
+    return(
+        <div className="LogoutComponent">
+            <h1>You are logged out!</h1>
+            <div>
+                Thank you for using our App. Come back soon!    
             </div>
         </div>
     )
