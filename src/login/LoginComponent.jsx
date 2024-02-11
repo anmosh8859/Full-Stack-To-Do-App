@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../security/AuthContext'
 function LoginComponent(){
+
+    const authContext = useAuth()
 
     const [username, setUsername] = useState("anand")
 
@@ -14,27 +17,13 @@ function LoginComponent(){
         setPassword(event.target.value)
     }
 
-    const[successMessage, setSuccessMessage] = useState(false)
-
-
     const[errorMessage, setErrorMessage] = useState(false)
 
     const navigate = useNavigate()
 
-    function handleSubmit(){
-        if(username==='anand' && password==='pass'){
-            console.log('success')
-            setSuccessMessage(true)
-            setErrorMessage(false)
-            navigate(`/welcome/${username}`)
-        }
-        else{
-            console.log('failed')
-            console.log(username)
-            console.log(password)
-            setSuccessMessage(false)
-            setErrorMessage(true)
-        } 
+    async function handleSubmit(){
+        if(await authContext.login(username, password)) navigate(`/welcome/${username}`)
+        else setErrorMessage(true)
     }
 
     return (
@@ -42,7 +31,6 @@ function LoginComponent(){
             
             <h1>Time to login</h1>
             {errorMessage && <div className='errorMessage'>Authenticated Failed, Please check your credentials.</div>}
-            {successMessage && <div className='successMessage'>Authenticated Succefully</div>}
             <div className="Login Form">
                 <div>
                     <label>User Name</label>

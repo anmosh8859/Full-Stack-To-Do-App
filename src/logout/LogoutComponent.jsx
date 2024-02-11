@@ -1,4 +1,9 @@
+import { useAuth } from "../security/AuthContext"
+
 export default function LogoutComponent(){
+
+    useAuth().logout()
+
     return(
         <div className="LogoutComponent">
             <h1>You are logged out!</h1>
